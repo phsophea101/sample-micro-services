@@ -1,12 +1,26 @@
 server:
   port: 9296
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging.level:
+  org.springframework.cloud:
+    consul: DEBUG
 
 spring:
   application:
-    name: config-server
+    name: configuration-server
   cloud:
+    consul:
+      discovery:
+        instanceId: ${spring.application.name}:${server.port}:${random.value}
+      host: consul-server
+      port: 8500
     config:
       server:
         git:
-          uri: https://github.com/shabbirdwd53/config-server
+          uri: https://github.com/phsophea101/configuration-server
           clone-on-start: true
