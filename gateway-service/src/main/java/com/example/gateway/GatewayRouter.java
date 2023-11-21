@@ -25,7 +25,7 @@ public class GatewayRouter extends RouteBuilder {
 
         rest().get("/authenticate")
                 .route()
-                .serviceCall("auth-service/authenticate").log("authenticate called");
+                .serviceCall("authentication-server/authenticate").log("authenticate called");
 
 //        rest().get("/bye")
 //                .route()
