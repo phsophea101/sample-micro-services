@@ -1,7 +1,10 @@
 spring:
   application:
-    name: auth-service
+    name: authentication-server
   cloud:
+    config:
+      enabled: true
+      uri: http://configuration-server:9296
     consul:
-      host: localhost
+      host: consul-server
       port: 8500

@@ -1,11 +1,11 @@
 spring:
   application:
-    name: auth-service
+    name: authentication-server
   cloud:
     consul:
       discovery:
         instanceId: ${spring.application.name}:${server.port}:${random.value}
-      host: localhost
+      host: consul-server
       port: 8500
 
 server:
