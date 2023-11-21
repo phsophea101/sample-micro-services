@@ -1,0 +1,51 @@
+version: "3.5"
+
+services:
+  consul:
+    image: consul:1.15.4
+    container_name: consul
+    command: agent -server -ui -node=server1 -bootstrap-expect=1 -client=0.0.0.0
+    ports:
+      - 8400:8400
+      - 8500:8500
+      - 8600:8600
+    networks:
+      - consul-net
+
+  gateway-service:
+    restart: on-failure
+    container_name: gateway-svr
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - consul-net
+    depends_on:
+      - consul
+
+  auth-service:
+    restart: on-failure
+    container_name: auth-svr
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    networks:
+      - consul-net
+    depends_on:
+      - consul
+
+  # bye-service:
+  #   restart: on-failure
+  #   build:
+  #     context: ./bye-service
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - consul-net
+  #   depends_on:
+  #     - consul
+
+networks:
+  consul-net:
+    driver: bridge
