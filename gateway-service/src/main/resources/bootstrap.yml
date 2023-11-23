@@ -6,5 +6,5 @@ spring:
       enabled: true
       uri: http://configuration-server:9296
     consul:
-      host: consul-server
+      host: localhost
       port: 8500

@@ -37,6 +37,10 @@ dependencies {
     implementation "org.apache.camel.springboot:camel-consul-starter:$camelVersion"
 
     implementation "org.springframework.cloud:spring-cloud-starter-consul-discovery"
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.13.0'
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
+
 
     //Mapstruct
     implementation "org.mapstruct:mapstruct:$mapstructVersion"
