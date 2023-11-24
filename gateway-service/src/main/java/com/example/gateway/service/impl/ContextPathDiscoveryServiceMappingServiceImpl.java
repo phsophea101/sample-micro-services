@@ -1,6 +1,6 @@
 package com.example.gateway.service.impl;
 
-import com.example.gateway.common.BizException;
+import com.example.gateway.common.exception.BizException;
 import com.example.gateway.dto.ContextPathDiscoveryServiceMappingDto;
 import com.example.gateway.dto.DiscoveryServiceStatusDto;
 import com.example.gateway.entity.ContextPathDiscoveryServiceMappingEntity;
@@ -36,7 +36,7 @@ public class ContextPathDiscoveryServiceMappingServiceImpl implements ContextPat
     public boolean existObject(ContextPathDiscoveryServiceMappingDto dto) {
         List<ContextPathDiscoveryServiceMappingDto> list = this.getAllContextPathDiscoveryServiceMappings();
         List<ContextPathDiscoveryServiceMappingDto> collect = list.stream().filter(item -> item.getContextPath().equalsIgnoreCase(dto.getContextPath())).collect(Collectors.toList());
-        return collect.size() > 0;
+        return !collect.isEmpty();
     }
 
     @Override

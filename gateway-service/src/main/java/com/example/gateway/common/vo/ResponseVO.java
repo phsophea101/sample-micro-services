@@ -1,6 +1,6 @@
 package com.example.gateway.common.vo;
 
-import com.example.gateway.common.ContextUtil;
+import com.example.gateway.common.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 
 public class ResponseVO<T> {

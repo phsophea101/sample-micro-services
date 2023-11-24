@@ -1,6 +1,6 @@
 package com.example.gateway.web.controller;
 
-import com.example.gateway.common.BizException;
+import com.example.gateway.common.exception.BizException;
 import com.example.gateway.common.vo.ResponseVO;
 import com.example.gateway.common.vo.ResponseVOBuilder;
 import com.example.gateway.dto.ContextPathDiscoveryServiceMappingDto;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/service-gateway")
+@RequestMapping("api/")
 public class ServiceGatewayController {
 
     private ContextPathDiscoveryServiceMappingService contextPathDiscoveryServiceMappingService;
@@ -37,25 +37,25 @@ public class ServiceGatewayController {
         this.camelRouteSetupRefresherService = camelRouteSetupRefresherService;
     }
 
-    @GetMapping("/health")
+    @GetMapping("health")
     public ResponseVO<String> healthCheck() {
-        return new ResponseVOBuilder<String>().success().data("Server is UP").build();
+        return new ResponseVOBuilder<String>().addData("Server is UP").build();
     }
 
-    @GetMapping(value = "/services", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "services", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseVO<List<ContextPathDiscoveryServiceMappingVo>> getAllServices() {
         List<ContextPathDiscoveryServiceMappingVo> body = CamelMapperUtil.INSTANCE.contextPathDiscoveryServiceListDtoToVo(contextPathDiscoveryServiceMappingService.getAllContextPathDiscoveryServiceMappings());
-        return new ResponseVOBuilder<List<ContextPathDiscoveryServiceMappingVo>>().success().data(body).build();
+        return new ResponseVOBuilder<List<ContextPathDiscoveryServiceMappingVo>>().addData(body).build();
     }
 
-    @GetMapping(value = "/services/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "services/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @SneakyThrows
     public ResponseVO<ContextPathDiscoveryServiceMappingVo> getService(@PathVariable("id") String id) {
         ContextPathDiscoveryServiceMappingVo body = CamelMapperUtil.INSTANCE.contextPathDiscoveryServiceDtoToVo(contextPathDiscoveryServiceMappingService.getContextPathDiscoveryServiceMappingDto(id));
-        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().success().data(body).build();
+        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().addData(body).build();
     }
 
-    @PostMapping(value = "/services", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "services", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @SneakyThrows
     public ResponseVO<ContextPathDiscoveryServiceMappingVo> addService(@RequestBody ContextPathDiscoveryServiceMappingVo contextPathDiscoveryServiceMappingEntity) {
         ContextPathDiscoveryServiceMappingDto contextPathDiscoveryServiceMappingDto = CamelMapperUtil.INSTANCE.contextPathDiscoveryServiceVoToDto(contextPathDiscoveryServiceMappingEntity);
@@ -65,36 +65,36 @@ public class ServiceGatewayController {
         ContextPathDiscoveryServiceMappingDto ce = contextPathDiscoveryServiceMappingService.addContextPathDiscoveryServiceMappingDto(contextPathDiscoveryServiceMappingDto);
         camelRouteSetupRefresherService.addService(ce);
         ContextPathDiscoveryServiceMappingVo body = CamelMapperUtil.INSTANCE.contextPathDiscoveryServiceDtoToVo(ce);
-        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().success().data(body).build();
+        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().addData(body).build();
     }
 
-    @PutMapping(value = "/services", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "services", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @SneakyThrows
     public ResponseVO<ContextPathDiscoveryServiceMappingVo> updateService(@RequestBody ContextPathDiscoveryServiceMappingDto contextPathDiscoveryServiceMappingEntity) {
         ContextPathDiscoveryServiceMappingDto ce = contextPathDiscoveryServiceMappingService.addContextPathDiscoveryServiceMappingDto(contextPathDiscoveryServiceMappingEntity);
         camelRouteSetupRefresherService.updateService(ce);
         ContextPathDiscoveryServiceMappingVo body = CamelMapperUtil.INSTANCE.contextPathDiscoveryServiceDtoToVo(ce);
-        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().success().data(body).build();
+        return new ResponseVOBuilder<ContextPathDiscoveryServiceMappingVo>().addData(body).build();
     }
 
-    @DeleteMapping(value = "/services/{id}")
+    @DeleteMapping(value = "services/{id}")
     @SneakyThrows
     public ResponseVO<Void> deleteService(@PathVariable("id") String id) {
         camelRouteSetupRefresherService.deleteService(contextPathDiscoveryServiceMappingService.getContextPathDiscoveryServiceMappingDto(id));
         contextPathDiscoveryServiceMappingService.deleteContextPathDiscoveryServiceMappingDto(id);
-        return new ResponseVOBuilder<Void>().success().build();
+        return new ResponseVOBuilder<Void>().build();
     }
 
-    @GetMapping(value = "/statuses", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "statuses", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseVO<List<DiscoveryServiceStatusVo>> getAllStatuses() {
         List<DiscoveryServiceStatusVo> body = CamelMapperUtil.INSTANCE.discoveryServiceStatusListDtoToVo(discoveryServiceStatusService.getDiscoveryServiceStatusEntities());
-        return new ResponseVOBuilder<List<DiscoveryServiceStatusVo>>().success().data(body).build();
+        return new ResponseVOBuilder<List<DiscoveryServiceStatusVo>>().addData(body).build();
     }
 
-    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "categories", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseVO<List<SubSystemCategoryVo>> getAllCategories() {
         List<SubSystemCategoryVo> body = CamelMapperUtil.INSTANCE.subSystemCategoryListDtoToVo(subSystemCategoryService.getSubSystemCategoryEntities());
-        return new ResponseVOBuilder<List<SubSystemCategoryVo>>().success().data(body).build();
+        return new ResponseVOBuilder<List<SubSystemCategoryVo>>().addData(body).build();
     }
 
 }

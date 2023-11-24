@@ -17,14 +17,12 @@ public class ContextPathDiscoveryServiceMappingRepository {
     }
 
     public List<ContextPathDiscoveryServiceMappingEntity> findByDiscoveryServiceStatusEntity(DiscoveryServiceStatusEntity discoveryServiceStatusEntity) {
-        List<ContextPathDiscoveryServiceMappingEntity> entities = this.contextPathDiscoveryServiceMappingEntities().stream().filter(item -> item.getDiscoveryServiceStatus().getDiscoveryServiceStatusType().equalsIgnoreCase(discoveryServiceStatusEntity.getDiscoveryServiceStatusType())).collect(Collectors.toList());
-        return entities;
+        return this.contextPathDiscoveryServiceMappingEntities().stream().filter(item -> item.getDiscoveryServiceStatus().getDiscoveryServiceStatusType().equalsIgnoreCase(discoveryServiceStatusEntity.getDiscoveryServiceStatusType())).collect(Collectors.toList());
     }
 
     public ContextPathDiscoveryServiceMappingEntity findById(String id) {
-        List<ContextPathDiscoveryServiceMappingEntity> entities = this.contextPathDiscoveryServiceMappingEntities();
-        List<ContextPathDiscoveryServiceMappingEntity> entity = entities.stream().filter(item -> item.getId().equalsIgnoreCase(id)).collect(Collectors.toList());
-        if (entity.size() > 0)
+        List<ContextPathDiscoveryServiceMappingEntity> entity = this.contextPathDiscoveryServiceMappingEntities().stream().filter(item -> item.getId().equalsIgnoreCase(id)).collect(Collectors.toList());
+        if (!entity.isEmpty())
             return entity.get(0);
         return null;
     }
@@ -39,9 +37,8 @@ public class ContextPathDiscoveryServiceMappingRepository {
 
 
     public void deleteById(String id) {
-        List<ContextPathDiscoveryServiceMappingEntity> entities = this.contextPathDiscoveryServiceMappingEntities();
-        List<ContextPathDiscoveryServiceMappingEntity> entity = entities.stream().filter(item -> item.getId().equalsIgnoreCase(id)).collect(Collectors.toList());
-        if (entity.size() > 0)
+        List<ContextPathDiscoveryServiceMappingEntity> entity = this.contextPathDiscoveryServiceMappingEntities().stream().filter(item -> item.getId().equalsIgnoreCase(id)).collect(Collectors.toList());
+        if (!entity.isEmpty())
             this.contextPathDiscoveryServiceMappingEntities().remove(entity.get(0));
     }
 

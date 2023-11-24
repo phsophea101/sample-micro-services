@@ -1,6 +1,6 @@
 package com.example.gateway.routebuilder;
 
-import com.example.gateway.common.ContextUtil;
+import com.example.gateway.common.util.ContextUtil;
 import com.example.gateway.dto.ContextPathDiscoveryServiceMappingDto;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;

@@ -1,6 +1,6 @@
 package com.example.gateway.enums;
 
-import com.example.gateway.common.ErrorCodeType;
+import com.example.gateway.common.consts.ErrorCodeType;
 
 public enum BizErrorCode implements ErrorCodeType {
 

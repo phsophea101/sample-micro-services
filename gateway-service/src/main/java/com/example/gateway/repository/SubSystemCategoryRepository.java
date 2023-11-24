@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,7 +17,7 @@ public class SubSystemCategoryRepository {
 
     public SubSystemCategoryEntity findBySubSystemCategoryType(String subSystemCategoryType) {
         List<SubSystemCategoryEntity> entity = this.subSystemCategoryEntities().stream().filter(item -> item.getSubSystemCategoryType().equalsIgnoreCase(subSystemCategoryType)).collect(Collectors.toList());
-        if (entity.size() > 0)
+        if (!entity.isEmpty())
             return entity.get(0);
         return null;
     }

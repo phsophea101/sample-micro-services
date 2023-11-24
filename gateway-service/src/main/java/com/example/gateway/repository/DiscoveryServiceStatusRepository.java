@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,7 +17,7 @@ public class DiscoveryServiceStatusRepository {
 
     public DiscoveryServiceStatusEntity findByDiscoveryServiceStatusType(String discoveryServiceStatusType) {
         List<DiscoveryServiceStatusEntity> entity = this.discoveryServiceStatusEntities().stream().filter(item -> item.getDiscoveryServiceStatusType().equalsIgnoreCase(discoveryServiceStatusType)).collect(Collectors.toList());
-        if (entity.size() > 0)
+        if (!entity.isEmpty())
             return entity.get(0);
         return null;
     }

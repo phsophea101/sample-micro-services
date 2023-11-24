@@ -1,6 +1,6 @@
 package com.example.gateway.service;
 
-import com.example.gateway.common.BizException;
+import com.example.gateway.common.exception.BizException;
 import com.example.gateway.dto.ContextPathDiscoveryServiceMappingDto;
 import com.example.gateway.enums.DiscoveryServiceStatusType;
 

@@ -1,6 +1,6 @@
 package com.example.gateway.service.impl;
 
-import com.example.gateway.common.ContextUtil;
+import com.example.gateway.common.util.ContextUtil;
 import com.example.gateway.dto.ContextPathDiscoveryServiceMappingDto;
 import com.example.gateway.enums.DiscoveryServiceStatusType;
 import com.example.gateway.routebuilder.DiscoveryServiceRouteBuilder;
@@ -61,7 +61,7 @@ public class CamelRouteSetupRefresherServiceImpl implements CamelRouteSetupRefre
         if (contextPathDiscoveryServiceMappingDto.getDiscoveryServiceStatus().getDiscoveryServiceStatusType().equalsIgnoreCase(String.valueOf(DiscoveryServiceStatusType.PUBLISHED)))
             this.camelContext.addRoutes(new DiscoveryServiceRouteBuilder(contextPathDiscoveryServiceMappingDto));
         else
-            System.out.println("");
+            log.info("This service status not publish ...");
     }
 
     @Override
