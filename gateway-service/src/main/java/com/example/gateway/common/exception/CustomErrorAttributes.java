@@ -43,7 +43,7 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         error.put("message", message);
         error.put("path", path);
         if ((exception instanceof Exception) && (ContextUtil.isProfile("dev", "local", "test", "debug"))) {
-            error.put("description", ObjectUtils.isNotEmpty(((Exception) exception).getLocalizedMessage()));
+            error.put("description", ((Exception) exception).getLocalizedMessage());
             error.put("exception", ((Exception) exception).getClass().getSimpleName());
         } else {
             error.put("description", message);
