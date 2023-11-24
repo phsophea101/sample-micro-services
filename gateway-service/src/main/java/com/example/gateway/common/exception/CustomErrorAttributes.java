@@ -47,7 +47,7 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
             error.put("exception", ((Exception) exception).getClass().getSimpleName());
         } else {
             error.put("description", message);
-            error.put("exception", "Unknown Exception");
+            error.put("exception", "UnknownException");
         }
         ContextUtil.getTraceContext().ifPresent(v -> response.put("trace_id", v.getTraceId()));
         response.put("error", error);
