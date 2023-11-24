@@ -29,7 +29,6 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         Object exception = webRequest.getAttribute(ErrorAttributes.ERROR_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);
         int status = (int) map.get("status");
         String message = (String) map.get("message");
-        String description = (String) map.get("description");
         String path = (String) map.get("path");
         message = StringUtils.isEmpty(message) ? (String) map.get("error") : message;
         String code = String.format("E0%s", status);
@@ -44,10 +43,12 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         error.put("message", message);
         error.put("path", path);
         if ((exception instanceof Exception) && (ContextUtil.isProfile("dev", "local", "test", "debug"))) {
-            description = ((Exception) exception).getLocalizedMessage();
+            error.put("description", ObjectUtils.isNotEmpty(((Exception) exception).getLocalizedMessage()));
             error.put("exception", ((Exception) exception).getClass().getSimpleName());
+        } else {
+            error.put("description", message);
+            error.put("exception", "Unknown Exception");
         }
-        error.put("description", ObjectUtils.isNotEmpty(description) ? description : message);
         ContextUtil.getTraceContext().ifPresent(v -> response.put("trace_id", v.getTraceId()));
         response.put("error", error);
         response.put("status", String.valueOf(status));
