@@ -30,7 +30,7 @@ public class ResponseVOBuilder<T> {
 
     public ResponseVOBuilder<T> addData(final T body) {
         responseVO.setData(body);
-        responseVO.setResult(I18nUtils.resolveMessage("SUCCEEDED", "Succeeded"));
+        responseVO.setResult(I18nUtils.messageResolver("SUCCEEDED", "Succeeded"));
         responseVO.setStatus("200");
         return this;
     }

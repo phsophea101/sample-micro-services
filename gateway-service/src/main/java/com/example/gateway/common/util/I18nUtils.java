@@ -14,7 +14,7 @@ public final class I18nUtils {
         I18nUtils.bundleMessage = bundleMessage;
     }
 
-    public static String resolveMessage(String code, String defaultMessage) {
+    public static String messageResolver(String code, String defaultMessage) {
         String message = bundleMessage.getMessage(code, null, defaultMessage, LocaleContextHolder.getLocale());
         if (ObjectUtils.isEmpty(message))
             return defaultMessage;

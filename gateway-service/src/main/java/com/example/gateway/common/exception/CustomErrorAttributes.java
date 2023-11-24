@@ -37,19 +37,21 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
             code = ((BizException) exception).getError().getValue();
             message = ((Exception) exception).getMessage();
         } else
-            message = I18nUtils.resolveMessage(code, message);
+            message = I18nUtils.messageResolver(code, message);
         Map<String, Object> response = new HashMap<>();
         Map<String, Object> error = new HashMap<>();
-        response.put("status", String.valueOf(status));
-        response.put("result", I18nUtils.resolveMessage("FAILED", "Failed"));
         error.put("code", code);
         error.put("message", message);
         error.put("path", path);
-        response.put("error", error);
-        ContextUtil.getTraceContext().ifPresent(v -> response.put("trace_id", v.getTraceId()));
-        if ((exception instanceof Exception) && (ContextUtil.isProfile("dev", "local", "test", "debug")))
+        if ((exception instanceof Exception) && (ContextUtil.isProfile("dev", "local", "test", "debug"))) {
             description = ((Exception) exception).getLocalizedMessage();
-        error.put("description", ObjectUtils.isEmpty(description) ? message : description);
+            error.put("exception", ((Exception) exception).getClass().getSimpleName());
+        }
+        error.put("description", ObjectUtils.isNotEmpty(description) ? description : message);
+        ContextUtil.getTraceContext().ifPresent(v -> response.put("trace_id", v.getTraceId()));
+        response.put("error", error);
+        response.put("status", String.valueOf(status));
+        response.put("result", I18nUtils.messageResolver("FAILED", "Failed"));
         return response;
     }
 }
